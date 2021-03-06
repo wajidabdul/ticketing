@@ -1,0 +1,29 @@
+=> Run following command to create secret JWT_KEY env variable
+kubectl create secret generic jwt-secret --from-literal JWT_KEY=asdf
+
+=> Run the following command to create secret STRIPE_KEY env variable
+kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=yoursecretkey
+
+=> Get the services of ingress-nginx namespace to make request from next server
+kubectl get services -n ingress-nginx
+
+=> URL For cross namespace request
+'http://ingress-nginx-controller.kube-system.svc.cluster.local/api/users/currentuser'
+
+=> Expose the deployment
+kubectl expose deployment ingress-nginx-controller --target-port=80 --type=NodePort -n kube-system
+
+=> Get services of kube-system namespace
+kubectl get services -n kube-system
+
+=>If you need to remove the service you can run this:
+kubectl delete service ingress-nginx-controller -n kube-system
+
+=> GEt the namespace
+kubectl get namespace
+
+=> get namespace services
+kubectl get services -n ingress-nginx
+
+for nats test applocation if we are using nats in kubernetes and to connect it from outside just use port farwarding by command
+kubectl port-forward podname 4222:422
